@@ -1,0 +1,27 @@
+# OS files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+Desktop.ini
+
+# Package caches
+node_modules/
+vendor/
+*.pyc
+__pycache__/
+
+# Local git identity (see ~/.gitconfig [include])
+.gitconfig.local
+
+# Environment files
+.env
+.env.local
+.env*.local
+
+# Editor / IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
