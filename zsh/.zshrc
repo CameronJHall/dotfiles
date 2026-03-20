@@ -11,31 +11,6 @@ fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
 fpath=(/Users/cam/.docker/completions $fpath)
 
 # ============================================================
-# Oh My Zsh
-# ============================================================
-export ZSH="$HOME/.oh-my-zsh"
-
-# NOTE: zsh-autosuggestions and zsh-syntax-highlighting are external plugins.
-# Install via: git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM}/plugins/zsh-autosuggestions
-#              git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting
-plugins=(
-  git
-  docker
-  kubectl
-  npm
-  yarn
-  rust
-  golang
-  copypath
-  copyfile
-  history-substring-search
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-)
-
-source $ZSH/oh-my-zsh.sh
-
-# ============================================================
 # History
 # ============================================================
 HISTFILE="$HOME/.zsh_history"
@@ -50,6 +25,9 @@ setopt APPEND_HISTORY
 # ============================================================
 # Completion
 # ============================================================
+autoload -Uz compinit
+compinit
+
 setopt COMPLETE_IN_WORD
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
@@ -70,19 +48,32 @@ alias ....='cd ../../..'
 alias ls='ls -al'
 
 alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
+
+# ============================================================
+# Zsh plugins
+# ============================================================
+if command -v brew &>/dev/null; then
+  for plugin in \
+    zsh-autosuggestions \
+    zsh-history-substring-search \
+    zsh-syntax-highlighting; do
+    prefix="$(brew --prefix "$plugin" 2>/dev/null)" || continue
+    source "$prefix/share/$plugin/$plugin.zsh"
+  done
+fi
+
+autoload -Uz history-substring-search-up history-substring-search-down
+zle -N history-substring-search-up
+zle -N history-substring-search-down
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 
 # ============================================================
 # Editor
 # ============================================================
 export EDITOR='vim'
 export VISUAL='vim'
-
-# ============================================================
-# Keybindings
-# ============================================================
-bindkey -e
 
 # ============================================================
 # Shell Options
@@ -101,6 +92,14 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 export NODE_PATH="$HOME/.config/opencode/node_modules" # additional path to help enable dotfile management of opencode
 
 # ============================================================
+# Bun
+# ============================================================
+[ -s "/Users/cam/.bun/_bun" ] && source "/Users/cam/.bun/_bun"
+
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# ============================================================
 # Tools (evaluated last so they can modify PATH/prompt)
 # ============================================================
 eval "$(fnm env --use-on-cd --shell zsh)"
@@ -113,14 +112,3 @@ fi
 # Local overrides (machine-specific, not checked in)
 # ============================================================
 [ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
-
-# bun completions
-[ -s "/Users/cam/.bun/_bun" ] && source "/Users/cam/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"

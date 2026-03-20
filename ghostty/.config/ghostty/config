@@ -1,39 +1,17 @@
+# Appearance
+theme = Everforest Dark Hard
+window-theme = system
+background-opacity = 0.9
+
 # Clipboard
 clipboard-read = allow
-clipboard-write = allow
-copy-on-select = clipboard
 clipboard-trim-trailing-spaces = true
-
-# Theme
-theme = Everforest Dark Hard
-background = #1e2326
-foreground = #d3c6aa
-selection-background = #4c3743
-selection-foreground = #d3c6aa
+copy-on-select = clipboard
+clipboard-paste-protection = true
 
 # Cursor
-cursor-color = #e69875
-cursor-text = #4c3743
 cursor-style = block
 cursor-style-blink = true
-
-# Palette
-palette = 0=#7a8478
-palette = 1=#e67e80
-palette = 2=#a7c080
-palette = 3=#dbbc7f
-palette = 4=#7fbbb3
-palette = 5=#d699b6
-palette = 6=#83c092
-palette = 7=#f2efdf
-palette = 8=#a6b0a0
-palette = 9=#f85552
-palette = 10=#8da101
-palette = 11=#dfa000
-palette = 12=#3a94c5
-palette = 13=#df69ba
-palette = 14=#35a77c
-palette = 15=#fffbef
 
 # Font
 font-family = IosevkaTerm Nerd Font Mono
@@ -44,19 +22,19 @@ bold-is-bright = true
 
 # Mouse
 mouse-hide-while-typing = true
-mouse-shift-capture = false
 link-url = true
 
 # Shell Integration
 shell-integration-features = no-cursor,sudo,title,ssh-env,ssh-terminfo,path
 
 # Scrolling
-scrollback-limit = 10000000
+scrollback-limit = 10_000_000
 
 # Window
+window-inherit-working-directory = true
 window-save-state = always
-window-padding-x = 4
-window-padding-y = 4
+window-padding-x = 8
+window-padding-y = 8
 window-padding-balance = true
 confirm-close-surface = true
 quit-after-last-window-closed = true
