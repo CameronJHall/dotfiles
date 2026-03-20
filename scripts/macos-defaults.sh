@@ -39,6 +39,17 @@ defaults write com.apple.screencapture location -string "$HOME/Screenshots"
 # Disable drop shadow on screenshots
 defaults write com.apple.screencapture disable-shadow -bool true
 
+# ── Sleep & Screensaver ─────────────────────────────────────
+printf "Sleep & Screensaver: lenient settings\n"
+# Display sleeps after 20 minutes
+pmset -a displaysleep 20
+# System sleeps after 1 hour
+pmset -a sleep 60
+# Screensaver starts after 10 minutes (600 seconds)
+defaults write com.apple.screensaver idleTime -int 600
+# Don't require password to wake from screensaver
+defaults write com.apple.screensaver askForPassword -bool false
+
 # ── Restart affected apps ────────────────────────────────────
 printf "\nRestarting Finder and SystemUIServer to apply changes...\n"
 killall Finder 2>/dev/null || true

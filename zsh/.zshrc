@@ -1,13 +1,14 @@
 # ============================================================
 # Path (must be early so everything below sees these paths)
 # ============================================================
-export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
 
 # ============================================================
 # Homebrew (must be before anything that depends on brew-installed tools)
 # ============================================================
 eval "$(brew shellenv)"
 fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+fpath=(/Users/cam/.docker/completions $fpath)
 
 # ============================================================
 # Oh My Zsh
@@ -55,6 +56,11 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
+# Exclude . and .. from all completions
+zstyle ':completion:*' file-list all
+zstyle ':completion:*' list-dirs-first true
+zstyle ':completion:*:*:-command-:*:*' ignored-patterns '.|..'
+
 # ============================================================
 # Aliases
 # ============================================================
@@ -92,6 +98,7 @@ setopt PUSHD_IGNORE_DUPS
 export LESS='-R'
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
+export NODE_PATH="$HOME/.config/opencode/node_modules" # additional path to help enable dotfile management of opencode
 
 # ============================================================
 # Tools (evaluated last so they can modify PATH/prompt)
@@ -106,3 +113,14 @@ fi
 # Local overrides (machine-specific, not checked in)
 # ============================================================
 [ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+
+# bun completions
+[ -s "/Users/cam/.bun/_bun" ] && source "/Users/cam/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
